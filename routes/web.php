@@ -15,6 +15,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->post('/login', 'UserController@login');
+$router->post('/reset', 'UserController@sendResetToken');
+$router->put('/reset/{token}', 'UserController@verifyResetPassword');
+
 $router->group(['middleware' => 'auth'], function() use($router) {
     $router->get('/users', 'UserController@index');
     $router->post('/users', 'UserController@store');
@@ -22,5 +26,3 @@ $router->group(['middleware' => 'auth'], function() use($router) {
     $router->put('/users/{id}', 'UserController@update');
     $router->delete('/users/{id}', 'UserController@destroy');
 });
-
-$router->post('/login', 'UserController@login');

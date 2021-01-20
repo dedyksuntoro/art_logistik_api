@@ -161,4 +161,22 @@ class UserController extends Controller
 
         return response()->json(['status' => 'success', 'data' => $user->reset_token]);
     }
+    
+    public function verifyResetPassword(Request $request, $token)
+    {
+        //VALIDASI PASSWORD HARUS MIN 6 
+        $this->validate($request, [
+            'password' => 'required|string|min:6'
+        ]);
+
+        //CARI USER BERDASARKAN TOKEN YANG DITERIMA
+        $user = User::where('reset_token', $token)->first();
+        //JIKA DATANYA ADA
+        if ($user) {
+            //UPDATE PASSWORD USER TERKAIT
+            $user->update(['password' => app('hash')->make($request->password)]);
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'error']);
+    }
 }
