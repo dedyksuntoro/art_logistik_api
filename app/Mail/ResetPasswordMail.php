@@ -23,8 +23,6 @@ class ResetPasswordMail extends Mailable
      *
      * @return void
      */
-  
-    //JADI SECARA DEFAULT KITA MEMINTA DATA USER
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -37,7 +35,6 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        //KEMUDIAN EMAILNYA ME-LOAD VIEW RESET_PASSWORD DAN PASSING DATA USER
         return $this->view('emails.reset_password')->with(['user' => $this->user]);
     }
 }
