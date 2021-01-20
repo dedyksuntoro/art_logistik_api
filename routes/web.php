@@ -22,7 +22,22 @@ $router->put('/reset/{token}', 'UserController@verifyResetPassword');
 $router->group(['middleware' => 'auth'], function() use($router) {
     $router->get('/users', 'UserController@index');
     $router->post('/users', 'UserController@store');
+    $router->get('/users/login', 'UserController@getUserLogin');
     $router->get('/users/{id}', 'UserController@edit');
     $router->put('/users/{id}', 'UserController@update');
     $router->delete('/users/{id}', 'UserController@destroy');
+
+    $router->get('/categories', 'CategoryController@index');
+    $router->post('/categories', 'CategoryController@store');
+    $router->get('/categories/{id}', 'CategoryController@edit');
+    $router->put('/categories/{id}', 'CategoryController@update');
+    $router->delete('/categories/{id}', 'CategoryController@destroy');
+
+    $router->get('fleets', 'FleetsController@index');
+    $router->post('fleets', 'FleetsController@store');
+    $router->get('fleets/{id}', 'FleetsController@edit');
+    $router->put('fleets/{id}', 'FleetsController@update');
+    $router->delete('fleets/{id}', 'FleetsController@destroy');
+
+    $router->post('/logout', 'UserController@logout');
 });
